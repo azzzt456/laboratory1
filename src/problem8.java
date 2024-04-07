@@ -1,36 +1,36 @@
 import java.util.Scanner;
 
 public class problem8 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String s = sc.next();
+    public static void execute() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the string: ");
+        String input = scanner.next();
 
-        System.out.print("isAllNum: ");
-        if (isAllNum(s, 0)) {
-            System.out.println("Yes");
-        } else {
-            System.out.println("No");
-        }
+        System.out.print("Result: ");
+        long startTime = System.nanoTime();
+        boolean isAllNumbers = checkIfAllNumbers(input, 0);
+        double runtime = (double) (System.nanoTime() - startTime) / 1000000000;
+        System.out.println(isAllNumbers ? "Yes" : "No");
+        System.out.println("Runtime: " + runtime + "\nTime complexity: O(n)");
     }
 
     /**
-     * This method checks if the given string consists only of numbers.
-     * It uses a recursive approach.
+     * This method checks if the given string only consists of numbers using recursion.
      * Time complexity: O(n), where n is the size of the string.
-     * The method iterates through characters from 0 to n,
-     * resulting in linear time complexity.
+     * the method iterates through numbers from 0 to n,
+     * resulting in linear time complexity
      *
-     * @param s the given string
-     * @param index the index of the character being checked
-     * @return true if the string consists only of numbers, otherwise false
+     * @param input the given string
+     * @param index the index of the element being checked
+     * @return true if the string contains only numbers, otherwise false
      */
-    public static boolean isAllNum(String s, int index) {
-        if (index == s.length()) {
+    public static boolean checkIfAllNumbers(String input, int index) {
+        if (index >= input.length()) {
             return true;
-        }
-        if ("0123456789".indexOf(s.charAt(index)) == -1) {
+        } else if ("0123456789".indexOf(input.charAt(index)) == -1) {
             return false;
+        } else {
+            return checkIfAllNumbers(input, index + 1);
         }
-        return isAllNum(s, index + 1);
     }
 }

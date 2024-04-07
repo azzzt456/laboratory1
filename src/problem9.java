@@ -1,33 +1,36 @@
 import java.util.Scanner;
 
 public class problem9 {
-    static int[][] memo;
+    public static void execute() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the bigger number: ");
+        int n = scanner.nextInt();
+        System.out.println("Enter the smaller number: ");
+        int k = scanner.nextInt();
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int k = sc.nextInt();
-
-        memo = new int[n + 1][k + 1];
-        System.out.println("binomialCoef: " + binomialCoef(n, k));
+        System.out.print("Result: ");
+        long startTime = System.nanoTime();
+        int result = calculateBinomialCoefficient(n, k);
+        double runtime = (double) (System.nanoTime() - startTime) / 1000000000;
+        System.out.println(result);
+        System.out.println("Runtime: " + runtime + "\nTime complexity: O(2^n)");
     }
 
     /**
-     * This method calculates the binomial coefficient for a given pair of numbers using recursion with memoization.
-     * Time complexity: O(n*k), where n is the number n and k is the number k.
+     * This method calculates the binomial coefficient for a given pair of numbers using recursion.
+     * Time complexity: O(2^n), where n is the number k.
+     * the method branches out each time,
+     * resulting in exponential time complexity
      *
      * @param n the first number
      * @param k the second number, has to be smaller than n
      * @return the binomial coefficient
      */
-    public static int binomialCoef(int n, int k) {
-        if (k == 0 || k == n) {
+    public static int calculateBinomialCoefficient(int n, int k) {
+        if (k == n || k == 0) {
             return 1;
+        } else {
+            return calculateBinomialCoefficient(n - 1, k - 1) + calculateBinomialCoefficient(n, k - 1);
         }
-        if (memo[n][k] != 0) {
-            return memo[n][k];
-        }
-        memo[n][k] = binomialCoef(n - 1, k - 1) + binomialCoef(n - 1, k);
-        return memo[n][k];
     }
 }

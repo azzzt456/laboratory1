@@ -1,31 +1,37 @@
 import java.util.Scanner;
 
 public class problem2 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[] array = new int[n];
-        for (int i = 0; i < n; i++) {
-            array[i] = sc.nextInt();
+    public static void execute() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the size of the array: ");
+        int size = scanner.nextInt();
+        int[] array = new int[size];
+        System.out.println("Enter the elements of the array: ");
+        for (int i = 0; i < size; i++) {
+            array[i] = scanner.nextInt();
         }
-        System.out.println("avgOfArr: " + avgOfArr(array));
+        long startTime = System.nanoTime();
+        double result = calculateAverage(array, 0, array[0]);
+        double runtime = (double) (System.nanoTime() - startTime) / 1000000000;
+        System.out.println("Result: " + result +
+                "\nRuntime: " + runtime +
+                "\nTime complexity: O(n)");
     }
 
     /**
-     * This method returns the average of the array.
-     * It uses a recursive approach.
+     * This method calculates the average of the elements in the array using recursion.
      * Time complexity: O(n), where n is the size of the array.
-     * The method iterates through elements of the array once,
-     * resulting in linear time complexity.
      *
      * @param array the given array
+     * @param index the index of the current element being processed
+     * @param sum   the sum of elements up to index
      * @return the average of the given array
      */
-    public static double avgOfArr(int[] array) {
-        double sum = 0;
-        for (int i = 0; i < array.length; i++) {
-            sum += array[i];
+    public static double calculateAverage(int[] array, int index, double sum) {
+        if (index + 1 == array.length) {
+            return sum / array.length;
+        } else {
+            return calculateAverage(array, index + 1, sum + array[index + 1]);
         }
-        return sum / array.length;
     }
 }

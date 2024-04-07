@@ -1,29 +1,36 @@
 import java.util.Scanner;
 
 public class problem10 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int a = sc.nextInt();
-        int b = sc.nextInt();
+    public static void execute() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the first number: ");
+        int a = scanner.nextInt();
+        System.out.println("Enter the second number: ");
+        int b = scanner.nextInt();
 
-        System.out.println("gcd: " + gcd(a, b));
+        System.out.print("Result: ");
+        long startTime = System.nanoTime();
+        int result = findGreatestCommonDivisor(b, a % b);
+        double runtime = (double) (System.nanoTime() - startTime) / 1000000000;
+        System.out.println(result);
+        System.out.println("Runtime: " + runtime + "\nTime complexity: O(n)");
     }
 
     /**
-     * this method calculates the gcd of 2 numbers
-     * it uses a recursive approach
-     * time complexity: O(n), where n is the number of divisions
-     * the method divides numbers until the remainder is 0,
+     * This method calculates the greatest common divisor (gcd) of two numbers using recursion.
+     * Time complexity: O(n), where n is the number of divisions.
+     * the method divides numbers until the remainder is 0
      * resulting in linear time complexity
      *
-     * @param a the first number
-     * @param b the second number
-     * @return the greatest common divisor
+     * @param b the number being divided
+     * @param c the divisor
+     * @return the greatest common denominator
      */
-    public static int gcd(int a, int b) {
-        if (b == 0) {
-            return a;
+    public static int findGreatestCommonDivisor(int b, int c) {
+        if (c == 0) {
+            return b;
+        } else {
+            return findGreatestCommonDivisor(c, b % c);
         }
-        return gcd(b, a % b);
     }
 }

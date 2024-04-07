@@ -1,28 +1,32 @@
 import java.util.Scanner;
 
 public class problem4 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+    public static void execute() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the number: ");
+        int number = scanner.nextInt();
 
-        System.out.println("factorial: " + factorial(n));
+        long startTime = System.nanoTime();
+        int result = calculateFactorial(number);
+        double runtime = (double) (System.nanoTime() - startTime) / 1000000000;
+        System.out.println("Result: " + result +
+                "\nRuntime: " + runtime +
+                "\nTime complexity: O(n)");
     }
 
     /**
-     * This method calculates the factorial of the given number.
-     * It uses a recursive approach.
+     * This method calculates the factorial of the given number using recursion.
      * Time complexity: O(n), where n is the given number.
-     * The method iterates through numbers from 1 to n,
-     * resulting in linear time complexity.
+     * resulting in linear time complexity
      *
-     * @param n the given number
+     * @param number the given number
      * @return the factorial of the given number
      */
-    public static int factorial(int n) {
-        int result = 1;
-        for (int i = 1; i <= n; i++) {
-            result *= i;
+    public static int calculateFactorial(int number) {
+        if (number == 1 || number == 0) {
+            return 1;
+        } else {
+            return number * calculateFactorial(number - 1);
         }
-        return result;
     }
 }

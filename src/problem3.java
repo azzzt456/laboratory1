@@ -1,32 +1,35 @@
 import java.util.Scanner;
 
 public class problem3 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+    public static void execute() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the number: ");
+        int number = scanner.nextInt();
 
-        System.out.println("primeOrComp: " + primeOrComp(n));
+        System.out.print("Result: ");
+        long startTime = System.nanoTime();
+        checkPrimeOrComposite(number, number / 2);
+        double runtime = (double) (System.nanoTime() - startTime) / 1000000000;
+        System.out.println("Runtime: " + runtime + "\nTime complexity: O(n/2)");
     }
 
     /**
-     * This method checks if the given number is prime or composite.
-     * It uses a recursive approach.
+     * This method checks if the given number is prime or composite
+     * using a recursive approach.
      * Time complexity: O(n/2), where n is the given number.
-     * The method iterates through numbers from n/2 to 1,
-     * resulting in square root time complexity.
+     * The method prints "Prime" or "Composite".
      *
-     * @param n the given number
-     * @return "Prime" if the number is prime, "Composite" otherwise
+     * @param number the given number
+     * @param divisor the number to check divisibility
+     *
      */
-    public static String primeOrComp(int n) {
-        if (n <= 1) {
-            return "Composite";
+    public static void checkPrimeOrComposite(int number, int divisor) {
+        if (divisor < 2) {
+            System.out.println("Prime");
+        } else if (number % divisor == 0) {
+            System.out.println("Composite");
+        } else {
+            checkPrimeOrComposite(number, divisor - 1);
         }
-        for (int i = 2; i * i <= n; i++) {
-            if (n % i == 0) {
-                return "Composite";
-            }
-        }
-        return "Prime";
     }
 }

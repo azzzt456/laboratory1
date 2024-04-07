@@ -1,33 +1,37 @@
 import java.util.Scanner;
 
 public class problem7 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[] array = new int[n];
-        for(int i = 0; i < n; i++){
-            array[i] = sc.nextInt();
+    public static void execute() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the size of the array: ");
+        int size = scanner.nextInt();
+
+        int[] array = new int[size];
+        System.out.println("Enter the elements of the array: ");
+        for (int i = 0; i < size; i++) {
+            array[i] = scanner.nextInt();
         }
-        System.out.print("reverseArr: ");
-        String reversedArray = reverseArr(array, n - 1);
-        System.out.println(reversedArray);
+
+        System.out.print("Result: ");
+        long startTime = System.nanoTime();
+        printArrayInReverse(array, size - 1);
+        double runtime = (double) (System.nanoTime() - startTime) / 1000000000;
+        System.out.println("\nRuntime: " + runtime + "\nTime complexity: O(n)");
     }
 
     /**
-     * This method returns the elements of the given array in reverse order as a string.
-     * It uses a recursive approach.
+     * This method prints the given array in reverse order using recursion.
      * Time complexity: O(n), where n is the size of the array.
-     * The method iterates through numbers from n to 0,
-     * resulting in linear time complexity.
+     * the method iterates through numbers from n to 0,
+     * resulting in linear time complexity
      *
      * @param array the given array
-     * @param index the index of the element being processed
-     * @return the elements of the given array in reverse order as a string
+     * @param index the index of the element being printed
      */
-    public static String reverseArr(int[] array, int index) {
-        if (index == 0) {
-            return Integer.toString(array[0]);
+    public static void printArrayInReverse(int[] array, int index) {
+        System.out.print(array[index] + " ");
+        if (index > 0) {
+            printArrayInReverse(array, index - 1);
         }
-        return array[index] + " " + reverseArr(array, index - 1);
     }
 }
